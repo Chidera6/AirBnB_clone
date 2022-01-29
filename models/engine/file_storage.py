@@ -29,13 +29,18 @@ class FileStorage:
 
     def new(self, obj):
         """
-               sets in  __objects the obj with key <obj class name>.id
-               :param obj: the class object
-               :type obj: dictionary
-               :return: dictionary
-               :rtype: dictionary
+        we add the object to the __objects attribute
+        the key is generated as <obj class name>.id
+        :obj : can have multi type class
+        :return: None
         """
-        self.__objects[__class__.__name__ + "." + obj.id] = obj
+        # att of that obj/instance
+        dict_attrs = obj.to_dict()
+        # generate some thing like "BaseModel.135489484231"
+        new_key = "{}.{}".format(dict_attrs["__class__"], dict_attrs["id"])
+        # in the class att we append that obj
+        self.__objects[new_key] = obj
+        # print("from new", FileStorage.__objects)
 
     def save(self):
         """
